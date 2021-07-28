@@ -1,7 +1,5 @@
 """Greeting Flask app."""
 
-from random import choice
-
 from flask import Flask, request
 
 # "__name__" is a special Python variable for the name of the current module
@@ -16,9 +14,13 @@ AWESOMENESS = [
 
 @app.route('/')
 def start_here():
-    """Home page."""
 
-    return "<!doctype html><html>Hi! This is the home page.</html>"
+    return "<!doctype html>" \
+           "<html>" \
+           "Hi! This is the home page." \
+            "<br>"\
+            "<a href='/hello'>Hello</a>"\
+           "</html>"
 
 
 @app.route('/hello')
@@ -34,7 +36,22 @@ def say_hello():
       <body>
         <h1>Hi There!</h1>
         <form action="/greet">
-          What's your name? <input type="text" name="person">
+          What's your name? <input type="text" name="person"><br>
+          Choose a compliment!<br>
+          <input type="radio" name="compliment" value="awesome">Awesome<br>
+          <input type="radio" name="compliment" value="terrific">Terrific<br>
+          <input type="radio" name="compliment" value="fantastic">Fantastic<br>
+          <input type="radio" name="compliment" value="neato">Neato<br>
+          <input type="radio" name="compliment" value="fantabulous">Fantabulous<br>
+          <input type="radio" name="compliment" value="wowza">Wowza<br>
+          <input type="radio" name="compliment" value="oh-so-not-meh">Oh-so-not-meh<br>
+          <input type="radio" name="compliment" value="brilliant">Brilliant<br>
+          <input type="radio" name="compliment" value="ducky">Ducky<br>
+          <input type="radio" name="compliment" value="coolio">Coolio<br>
+          <input type="radio" name="compliment" value="incredible">Incredible<br>
+          <input type="radio" name="compliment" value="wonderful">Wonderful<br>
+          <input type="radio" name="compliment" value="smashing">Smashing<br>
+          <input type="radio" name="compliment" value="lovely">Lovely<br>
           <input type="submit" value="Submit">
         </form>
       </body>
@@ -47,8 +64,7 @@ def greet_person():
     """Get user by name."""
 
     player = request.args.get("person")
-
-    compliment = choice(AWESOMENESS)
+    compliment = request.args.get('compliment')
 
     return f"""
     <!doctype html>
